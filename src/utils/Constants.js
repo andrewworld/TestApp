@@ -1,0 +1,14 @@
+export default {
+    action: {
+        ADD_SERVICE: 'ADD_SERVICE',
+        DELETE_SERVICE: 'DELETE_SERVICE',
+        UPDATE_SERVICE: 'UPDATE_SERVICE',
+
+        SET_NAME: 'SET_NAME',
+        SET_PRICE: 'SET_PRICE',
+        SET_IMAGE: 'SET_IMAGE',
+        SET_DESCRIPTION: 'SET_DESCRIPTION',
+        SET_PRICE_VARIES: 'SET_PRICE_VARIES',
+        RESET_STATE: 'RESET_STATE'
+    },
+}
