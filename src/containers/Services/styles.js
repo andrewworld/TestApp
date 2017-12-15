@@ -17,10 +17,14 @@ export default StyleSheet.create({
     itemContainer: {
         backgroundColor: '#222222',
         flexDirection: 'row',
-        minHeight: 64,
+        alignItems: 'center',
         padding: 12,
     },
+    itemTextContainer: {
+        flex: 1
+    },
     itemView: {
+        alignSelf: 'stretch',
         width: 3,
         backgroundColor: '#F06292',
     },
@@ -29,9 +33,6 @@ export default StyleSheet.create({
         width: 64,
         marginLeft: 12,
         marginRight: 12,
-    },
-    itemTextContainer: {
-        justifyContent: 'center',
     },
     itemName: {
         fontSize: 16,

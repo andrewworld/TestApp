@@ -62,12 +62,14 @@ export default StyleSheet.create({
         padding: 12,
         backgroundColor: '#222222',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
     },
     itemButtonTitle: {
         fontSize: 16,
         color: 'white',
+    },
+    itemButtonTextContainer: {
+      flex: 1
     },
     itemButtonValueContainer: {
         flexDirection: 'row',

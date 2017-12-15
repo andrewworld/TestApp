@@ -3,7 +3,7 @@ import { Image, SectionList, Switch, Text, TextInput, TouchableOpacity, View } f
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
 import { openDescription } from '../../redux/actions/navActions'
-import { resetState, setImage, setName, setPrice, setPriceVaries } from '../../redux/actions/serviceFormActions'
+import { resetState, setDescription, setImage, setName, setPrice, setPriceVaries } from '../../redux/actions/serviceFormActions'
 import styles from './styles'
 
 @connect(
@@ -11,6 +11,7 @@ import styles from './styles'
         items: state.dataState.services,
         name: state.serviceFormState.name,
         price: state.serviceFormState.price,
+        description: state.serviceFormState.description,
         image: state.serviceFormState.image,
         priceVaries: state.serviceFormState.priceVaries,
     }),
@@ -18,6 +19,7 @@ import styles from './styles'
         setName: (name) => dispatch(setName(name)),
         setPrice: (price) => dispatch(setPrice(price)),
         setImage: (image) => dispatch(setImage(image)),
+        setDescription: (description) => dispatch(setDescription(description)),
         setPriceVaries: (value) => dispatch(setPriceVaries(value)),
         resetState: () => dispatch(resetState()),
         openDescription: (key) => dispatch(openDescription({key})),
@@ -50,6 +52,10 @@ export default class ServiceFormContainer extends React.Component {
         return this._service && this._service.price
     }
 
+    get _serviceDescription () {
+        return this._service && this._service.description
+    }
+
     get _serviceDuration () {
         return this._service && this._service.duration
     }
@@ -67,6 +73,7 @@ export default class ServiceFormContainer extends React.Component {
                     {
                         title: 'Total Duration',
                         value: this._serviceDuration,
+                        nearArrow: true,
                         onPress: () => {},
                     },
                     {
@@ -86,6 +93,7 @@ export default class ServiceFormContainer extends React.Component {
                 data: [
                     {
                         title: 'Description',
+                        value: this.props.description,
                         onPress: () => this.props.openDescription(this.props.id),
                     },
                     {
@@ -170,16 +178,25 @@ export default class ServiceFormContainer extends React.Component {
             //TODO-andrew tmp arrow, better use vector icons
             return (
                 <TouchableOpacity
-                    disabled={!Boolean(item.onPress)}
+                    disabled={!item.onPress}
                     onPress={item.onPress}>
                     <View style={styles.itemButton}>
-                        <Text style={styles.itemButtonTitle}>{item.title}</Text>
+                        <View style={styles.itemButtonTextContainer}>
+                            <Text style={styles.itemButtonTitle}>{item.title}</Text>
+                            {item.value && !item.nearArrow
+                                ? <Text
+                                    numberOfLines={1}
+                                    style={{color: 'grey', fontSize: 12}}>
+                                    {item.value}
+                                </Text>
+                                : null}
+                        </View>
                         {(item.onValueChange)
                             ? (<Switch
                                 value={item.value}
                                 onValueChange={item.onValueChange}/>)
                             : (<View style={styles.itemButtonValueContainer}>
-                                {item.value ? <Text style={styles.itemButtonValue}>{`${item.value || 0}hr`}</Text> : null}
+                                {item.value && item.nearArrow ? <Text style={styles.itemButtonValue}>{`${item.value || 0}hr`}</Text> : null}
                                 <Text style={styles.itemButtonArrow}>{'>'}</Text>
                             </View>)}
                     </View>
@@ -192,6 +209,7 @@ export default class ServiceFormContainer extends React.Component {
         if (this.props.id) {
             this.props.setName(this._serviceName)
             this.props.setPrice(this._servicePrice)
+            this.props.setDescription(this._serviceDescription)
             this.props.setImage(this._serviceImage)
         }
     }

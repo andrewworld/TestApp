@@ -35,7 +35,11 @@ export default class ServicesContainer extends React.Component {
                         style={styles.itemImage}/>
                     <View style={styles.itemTextContainer}>
                         <Text style={styles.itemName}>{item.name}</Text>
-                        <Text style={styles.itemDescription}>{`${item.duration}hr \u2022 $${item.price} \u2022 ${item.description}`}</Text>
+                        <Text
+                            numberOfLines={1}
+                            style={styles.itemDescription}>
+                            {`${item.duration} \u2022 $${item.price} \u2022 ${item.description}`}
+                        </Text>
                     </View>
                 </View>
             </TouchableOpacity>
