@@ -26,7 +26,7 @@ export default class DescriptionContainer extends React.Component {
     }
 
     componentDidMount () {
-        this.props.setDescription(this.props.description || this._description)
+        this.props.id && this.props.setDescription(this.props.description || this._description)
     }
 
     render () {

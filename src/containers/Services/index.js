@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import List from '../../components/List'
 import { deleteService } from '../../redux/actions/dataActions'
 import { openServiceForm } from '../../redux/actions/navActions'
+import { minToString } from '../../utils/helper'
 import styles from './styles'
 
 @connect(
@@ -38,7 +39,7 @@ export default class ServicesContainer extends React.Component {
                         <Text
                             numberOfLines={1}
                             style={styles.itemDescription}>
-                            {`${item.duration} \u2022 $${item.price} \u2022 ${item.description}`}
+                            {`${minToString(item.duration)}${item.price && ' \u2022 $'}${item.price} ${item.description && '\u2022'} ${item.description}`}
                         </Text>
                     </View>
                 </View>

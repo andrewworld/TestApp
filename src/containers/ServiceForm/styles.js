@@ -28,7 +28,7 @@ export default StyleSheet.create({
     },
     sectionHeaderText: {
         fontSize: 12,
-        color: '#a5a5a5'
+        color: '#a5a5a5',
     },
     header: {
         height: 200,
@@ -69,17 +69,21 @@ export default StyleSheet.create({
         color: 'white',
     },
     itemButtonTextContainer: {
-      flex: 1
+        flex: 1,
     },
     itemButtonValueContainer: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    itemButtonValue: {
+    itemButtonValueArrow: {
         fontSize: 16,
         color: '#a5a5a5',
         marginLeft: 8,
         marginRight: 8,
+    },
+    itemButtonValue: {
+        color: 'grey',
+        fontSize: 12,
     },
     itemButtonArrow: {
         fontSize: 16,

@@ -3,6 +3,7 @@ import { StatusBar, Text, TextInput, TouchableOpacity, View, } from 'react-nativ
 import { Header, StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import DescriptionContainer from '../../containers/Description'
+import DurationContainer from '../../containers/Duration'
 import ServiceFormContainer from '../../containers/ServiceForm'
 import ServicesContainer from '../../containers/Services'
 import { addService, updateService } from '../../redux/actions/dataActions'
@@ -12,6 +13,7 @@ import styles from './styles'
 export const SERVICES = 'Services'
 export const SERVICE_FORM = 'ServiceForm'
 export const DESCRIPTION = 'Description'
+export const DURATION = 'Duration'
 
 //TODO-andrew tmp plus, better use vector icons
 export default StackNavigator(
@@ -86,9 +88,31 @@ export default StackNavigator(
                             backgroundColor={'#222222'}/>
                         <Header {...props}/>
                     </View>
-                ),
-            }),
+                )
+            })
         },
+        [DURATION]: {
+            screen: ({navigation}) => (<DurationContainer id={navigation.state.params && navigation.state.params.key}/>),
+            navigationOptions: ({navigation}) => ({
+                title: 'Service Duration',
+                headerTintColor: 'white',
+                headerStyle: styles.header,
+                headerTitleStyle: styles.headerTitle,
+                headerRight: (<View style={{width: 64}}/>),
+                headerLeft: (
+                    <TouchableOpacity onPress={() => navigation.dispatch(goBack())}>
+                        <Text style={styles.headerTextButton}>{'< Back'}</Text>
+                    </TouchableOpacity>),
+                header: (props) => (
+                    <View>
+                        <StatusBar
+                            barStyle={'light-content'}
+                            backgroundColor={'#222222'}/>
+                        <Header {...props}/>
+                    </View>
+                )
+            })
+        }
     },
     {
         cardStyle: styles.cardStyle,
@@ -100,6 +124,7 @@ export default StackNavigator(
         name: state.serviceFormState.name,
         price: state.serviceFormState.price,
         description: state.serviceFormState.description,
+        duration: state.serviceFormState.duration,
         image: state.serviceFormState.image,
     }),
     (dispatch) => ({
@@ -117,8 +142,8 @@ class HeaderRight extends React.Component {
     }
 
     _onPress () {
-        if (!this.props.id) this.props.addService(this.props.name, this.props.price, this.props.image, this.props.description, 3) //TODO-andrew tmp duration
-        else this.props.updateService(this.props.id, this.props.name, this.props.price, this.props.image, this.props.description, 3)
+        if (!this.props.id) this.props.addService(this.props.name, this.props.price, this.props.image, this.props.description, this.props.duration)
+        else this.props.updateService(this.props.id, this.props.name, this.props.price, this.props.image, this.props.description, this.props.duration)
         this.props.goBack()
     }
 

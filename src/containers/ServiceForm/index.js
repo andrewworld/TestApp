@@ -2,8 +2,9 @@ import React from 'react'
 import { Image, SectionList, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
-import { openDescription } from '../../redux/actions/navActions'
-import { resetState, setDescription, setImage, setName, setPrice, setPriceVaries } from '../../redux/actions/serviceFormActions'
+import { openDescription, openDuration } from '../../redux/actions/navActions'
+import { resetState, setDescription, setDuration, setImage, setName, setPrice, setPriceVaries } from '../../redux/actions/serviceFormActions'
+import { minToString } from '../../utils/helper'
 import styles from './styles'
 
 @connect(
@@ -12,6 +13,7 @@ import styles from './styles'
         name: state.serviceFormState.name,
         price: state.serviceFormState.price,
         description: state.serviceFormState.description,
+        duration: state.serviceFormState.duration,
         image: state.serviceFormState.image,
         priceVaries: state.serviceFormState.priceVaries,
     }),
@@ -20,9 +22,11 @@ import styles from './styles'
         setPrice: (price) => dispatch(setPrice(price)),
         setImage: (image) => dispatch(setImage(image)),
         setDescription: (description) => dispatch(setDescription(description)),
+        setDuration: (duration) => dispatch(setDuration(duration)),
         setPriceVaries: (value) => dispatch(setPriceVaries(value)),
         resetState: () => dispatch(resetState()),
         openDescription: (key) => dispatch(openDescription({key})),
+        openDuration: (key) => dispatch(openDuration({key})),
     }),
 )
 export default class ServiceFormContainer extends React.Component {
@@ -72,9 +76,9 @@ export default class ServiceFormContainer extends React.Component {
                     },
                     {
                         title: 'Total Duration',
-                        value: this._serviceDuration,
+                        value: minToString(this.props.duration),
                         nearArrow: true,
-                        onPress: () => {},
+                        onPress: () => this.props.openDuration(this.props.id),
                     },
                     {
                         title: 'Price',
@@ -186,7 +190,7 @@ export default class ServiceFormContainer extends React.Component {
                             {item.value && !item.nearArrow
                                 ? <Text
                                     numberOfLines={1}
-                                    style={{color: 'grey', fontSize: 12}}>
+                                    style={styles.itemButtonValue}>
                                     {item.value}
                                 </Text>
                                 : null}
@@ -196,7 +200,7 @@ export default class ServiceFormContainer extends React.Component {
                                 value={item.value}
                                 onValueChange={item.onValueChange}/>)
                             : (<View style={styles.itemButtonValueContainer}>
-                                {item.value && item.nearArrow ? <Text style={styles.itemButtonValue}>{`${item.value || 0}hr`}</Text> : null}
+                                {item.value && item.nearArrow ? <Text style={styles.itemButtonValueArrow}>{`${item.value || 0}`}</Text> : null}
                                 <Text style={styles.itemButtonArrow}>{'>'}</Text>
                             </View>)}
                     </View>
@@ -210,6 +214,7 @@ export default class ServiceFormContainer extends React.Component {
             this.props.setName(this._serviceName)
             this.props.setPrice(this._servicePrice)
             this.props.setDescription(this._serviceDescription)
+            this.props.setDuration(this._serviceDuration)
             this.props.setImage(this._serviceImage)
         }
     }

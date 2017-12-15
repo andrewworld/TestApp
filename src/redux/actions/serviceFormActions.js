@@ -28,6 +28,20 @@ export function setDescription (description) {
     }
 }
 
+export function setDuration (duration, type) {
+    return {
+        type: Constants.action.SET_DURATION,
+        payload: {duration, type},
+    }
+}
+
+export function setDurationMode (mode) {
+    return {
+        type: Constants.action.SET_DURATION_MODE,
+        payload: mode,
+    }
+}
+
 export function setPriceVaries (value) {
     return {
         type: Constants.action.SET_PRICE_VARIES,
@@ -37,6 +51,6 @@ export function setPriceVaries (value) {
 
 export function resetState () {
     return {
-        type: Constants.action.RESET_STATE
+        type: Constants.action.RESET_STATE,
     }
 }
