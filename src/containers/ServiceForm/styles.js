@@ -86,7 +86,7 @@ export default StyleSheet.create({
         fontSize: 12,
     },
     itemButtonArrow: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
     },
 })

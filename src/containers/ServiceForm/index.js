@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, SectionList, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { openDescription, openDuration } from '../../redux/actions/navActions'
 import { resetState, setDescription, setDuration, setImage, setName, setPrice, setPriceVaries } from '../../redux/actions/serviceFormActions'
 import { minToString } from '../../utils/helper'
@@ -179,7 +180,6 @@ export default class ServiceFormContainer extends React.Component {
                 </View>
             )
         } else {
-            //TODO-andrew tmp arrow, better use vector icons
             return (
                 <TouchableOpacity
                     disabled={!item.onPress}
@@ -201,7 +201,9 @@ export default class ServiceFormContainer extends React.Component {
                                 onValueChange={item.onValueChange}/>)
                             : (<View style={styles.itemButtonValueContainer}>
                                 {item.value && item.nearArrow ? <Text style={styles.itemButtonValueArrow}>{`${item.value || 0}`}</Text> : null}
-                                <Text style={styles.itemButtonArrow}>{'>'}</Text>
+                                <Icon
+                                    name={'ios-arrow-forward'}
+                                    style={styles.itemButtonArrow}/>
                             </View>)}
                     </View>
                 </TouchableOpacity>

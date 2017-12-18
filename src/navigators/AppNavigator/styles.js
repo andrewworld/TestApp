@@ -29,10 +29,26 @@ export default StyleSheet.create({
         color: '#F06292',
         fontSize: 32,
     },
-    headerTextButton: {
-        marginLeft: 16,
-        marginRight: 16,
+    headerTextButtonNoArrow: {
         color: '#F06292',
         fontSize: 16,
+        marginLeft: 16,
+        marginRight: 16,
+    },
+    headerTextButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 16,
+        marginRight: 16,
+    },
+    headerTextButtonText: {
+        color: '#F06292',
+        fontSize: 16,
+        marginRight: 8,
+        marginLeft: 8,
+    },
+    headerTextButtonArrow: {
+        color: '#F06292',
+        fontSize: 20,
     },
 })

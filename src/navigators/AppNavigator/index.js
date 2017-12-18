@@ -1,5 +1,6 @@
 import React from 'react'
 import { StatusBar, Text, TextInput, TouchableOpacity, View, } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Header, StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import DescriptionContainer from '../../containers/Description'
@@ -15,7 +16,6 @@ export const SERVICE_FORM = 'ServiceForm'
 export const DESCRIPTION = 'Description'
 export const DURATION = 'Duration'
 
-//TODO-andrew tmp plus, better use vector icons
 export default StackNavigator(
     {
         [SERVICES]: {
@@ -28,7 +28,9 @@ export default StackNavigator(
                 headerLeft: (<View style={{width: 64}}/>),
                 headerRight: (
                     <TouchableOpacity onPress={() => navigation.dispatch(openServiceForm())}>
-                        <Text style={styles.headerPlusButton}>{'+'}</Text>
+                        <Icon
+                            name={'ios-add'}
+                            style={styles.headerPlusButton}/>
                     </TouchableOpacity>),
                 header: (props) => (
                     <View>
@@ -57,7 +59,7 @@ export default StackNavigator(
                 headerRight: (<HeaderRight id={navigation.state.params && navigation.state.params.key}/>),
                 headerLeft: (
                     <TouchableOpacity onPress={() => navigation.dispatch(goBack())}>
-                        <Text style={styles.headerTextButton}>{'Cancel'}</Text>
+                        <Text style={styles.headerTextButtonNoArrow}>{'Cancel'}</Text>
                     </TouchableOpacity>),
                 header: (props) => (
                     <View>
@@ -79,7 +81,12 @@ export default StackNavigator(
                 headerRight: (<View style={{width: 64}}/>),
                 headerLeft: (
                     <TouchableOpacity onPress={() => navigation.dispatch(goBack())}>
-                        <Text style={styles.headerTextButton}>{'< Back'}</Text>
+                        <View style={styles.headerTextButton}>
+                            <Icon
+                                name={'ios-arrow-back'}
+                                style={styles.headerTextButtonArrow}/>
+                            <Text style={styles.headerTextButtonText}>{'Back'}</Text>
+                        </View>
                     </TouchableOpacity>),
                 header: (props) => (
                     <View>
@@ -88,8 +95,8 @@ export default StackNavigator(
                             backgroundColor={'#222222'}/>
                         <Header {...props}/>
                     </View>
-                )
-            })
+                ),
+            }),
         },
         [DURATION]: {
             screen: ({navigation}) => (<DurationContainer id={navigation.state.params && navigation.state.params.key}/>),
@@ -101,7 +108,12 @@ export default StackNavigator(
                 headerRight: (<View style={{width: 64}}/>),
                 headerLeft: (
                     <TouchableOpacity onPress={() => navigation.dispatch(goBack())}>
-                        <Text style={styles.headerTextButton}>{'< Back'}</Text>
+                        <View style={styles.headerTextButton}>
+                            <Icon
+                                name={'ios-arrow-back'}
+                                style={styles.headerTextButtonArrow}/>
+                            <Text style={styles.headerTextButtonText}>{'Back'}</Text>
+                        </View>
                     </TouchableOpacity>),
                 header: (props) => (
                     <View>
@@ -110,9 +122,9 @@ export default StackNavigator(
                             backgroundColor={'#222222'}/>
                         <Header {...props}/>
                     </View>
-                )
-            })
-        }
+                ),
+            }),
+        },
     },
     {
         cardStyle: styles.cardStyle,
@@ -150,7 +162,7 @@ class HeaderRight extends React.Component {
     render () {
         return (
             <TouchableOpacity onPress={this._onPress}>
-                <Text style={styles.headerTextButton}>{this.props.id ? 'Save' : 'Create'}</Text>
+                <Text style={styles.headerTextButtonNoArrow}>{this.props.id ? 'Save' : 'Create'}</Text>
             </TouchableOpacity>
         )
     }
